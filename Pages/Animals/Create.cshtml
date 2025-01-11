@@ -1,0 +1,74 @@
+﻿@page
+@model Proiect_Medii_ZOO.Pages.Animals.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Animal</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Animal.Name" class="control-label"></label>
+                <input asp-for="Animal.Name" class="form-control" />
+                <span asp-validation-for="Animal.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Animal.KeeperID" class="control-label">Keeper Name</label>
+                <select asp-for="Animal.KeeperID" class="form-control" asp-items="ViewBag.KeeperID">
+</select>
+            
+                <span asp-validation-for="Animal.KeeperID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Animal.EnclosureID" class="control-label"></label>
+                <input asp-for="Animal.EnclosureID" class="form-control" />
+                <span asp-validation-for="Animal.EnclosureID" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                 <div class="table">
+                     <table>
+                         <tr>
+                             @{
+                                 int cnt = 0;
+                                 foreach (var die in Model.AssignedDietDataList)
+                                 {
+                                     if (cnt++ % 3 == 0)
+                                     {
+                                     @:</tr><tr>
+                                     }
+                                     @:<td>
+                                         <input type="checkbox"
+                                             name="selectedDiets"
+                                             value="@die.DietID"
+                                             @(Html.Raw(die.Assigned ?"checked=\"checked\"" : "")) />
+                                         @die.DietID @: @die.Name
+                                     @:</td>
+                                 }
+                         @:</tr>
+                         }
+                     </table>
+                 </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

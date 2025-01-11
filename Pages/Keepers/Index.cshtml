@@ -1,0 +1,76 @@
+﻿@page "{id:int?}"
+@model Proiect_Medii_ZOO.Pages.Keepers.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Keeper[0].KeeperName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Keeper[0].PhoneNumber)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.KeeperData.Keepers) {
+            string selectedRow = "";
+            if(item.ID == Model.KeeperID)
+            {
+                selectedRow = "table-success";
+            }
+            <tr class="@selectedRow">
+            <td>
+                @Html.DisplayFor(modelItem => item.KeeperName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                <a asp-page="./Index" asp-route-id="@item.ID">Select</a> |
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@if (Model.KeeperData.Animals != null)
+{
+    <h3>Animals taken care by selected keeper</h3>
+    <table class="table">
+
+        @foreach( var item in Model.KeeperData.Keepers)
+        {
+            string selectedRow = "";
+            if(item.ID == Model.KeeperID)
+            {
+                selectedRow = "table-success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @{
+                        foreach(var a in item.Animals)
+                        {
+                            @a.Name @: @a.Enclosure.EnclosureName
+                            <br />
+                        }
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+}
