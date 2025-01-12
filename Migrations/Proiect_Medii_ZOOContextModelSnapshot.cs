@@ -90,6 +90,35 @@ namespace Proiect_Medii_ZOO.Migrations
                     b.ToTable("Diet");
                 });
 
+            modelBuilder.Entity("Proiect_Medii_ZOO.Models.Employee", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Employee");
+                });
+
             modelBuilder.Entity("Proiect_Medii_ZOO.Models.Enclosure", b =>
                 {
                     b.Property<int>("ID")

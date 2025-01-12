@@ -27,12 +27,15 @@ namespace Proiect_Medii_ZOO.Pages.Animals
 
         public string NameSort { get; set; }
         public string EnclosureSort { get; set; }
-        public async Task OnGetAsync(int? id, int? dietID, string sortOrder)
+        public string CurrentFilter { get; set; }
+        public async Task OnGetAsync(int? id, int? dietID, string sortOrder, string searchString)
         {
             AnimalD = new AnimalData();
 
             NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             EnclosureSort = sortOrder == "enclosure" ? "enclosure_desc" : "enclosure";
+
+            CurrentFilter = searchString;
 
             AnimalD.Animals = await _context.Animal
                 .Include(b => b.Keeper)
@@ -43,7 +46,16 @@ namespace Proiect_Medii_ZOO.Pages.Animals
                 .OrderBy(b => b.Name)
                 .ToListAsync();
 
-            if (id != null)
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                AnimalD.Animals = AnimalD.Animals.Where(s => s.Enclosure.EnclosureName.Contains(searchString)
+
+               || s.Keeper.KeeperName.Contains(searchString)
+               || s.Name.Contains(searchString));
+
+            }
+
+                if (id != null)
             {
                 AnimalID = id.Value;
                 Animal animal = AnimalD.Animals

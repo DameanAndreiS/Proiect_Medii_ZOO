@@ -21,14 +21,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Animal.KeeperID" class="control-label">Keeper Name</label>
-                <select asp-for="Animal.KeeperID" class="form-control" asp-items="ViewBag.KeeperID">
-</select>
-            
+                <select asp-for="Animal.KeeperID" class="form-control" asp-items="ViewBag.KeeperID"></select>
                 <span asp-validation-for="Animal.KeeperID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Animal.EnclosureID" class="control-label"></label>
-                <input asp-for="Animal.EnclosureID" class="form-control" />
+                <label asp-for="Animal.EnclosureID" class="control-label">Enclosure</label>
+                <select asp-for="Animal.EnclosureID" class="form-control" asp-items="ViewBag.EnclosureID"></select>
                 <span asp-validation-for="Animal.EnclosureID" class="text-danger"></span>
             </div>
 

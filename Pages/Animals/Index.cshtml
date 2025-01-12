@@ -5,22 +5,40 @@
     ViewData["Title"] = "Animals";
 }
 
-<h1>Index</h1>
+<h1>Animals</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by Animal Species / Enclosure Name / Keeper Name:
+            <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-page="./Index">Back to full List</a>
+        </p>
+    </div>
+</form>
+
+
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Animal[0].Name)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.NameSort">
+                    @Html.DisplayNameFor(model => model.Animal[0].Name)
+                </a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Animal[0].Keeper)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Animal[0].Enclosure)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.EnclosureSort">
+                    @Html.DisplayNameFor(model => model.Animal[0].Enclosure.EnclosureName)
+                </a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Animal[0].AnimalDiets)
@@ -50,7 +68,7 @@
                     @{
                         foreach (var diet in item.AnimalDiets)
                         {
-                            @diet.Diet.ID @: @diet.Diet.DietName <br />
+                            @diet.Diet.DietName <br />
                         }
                     }
                 </td>

@@ -18,5 +18,6 @@ namespace Proiect_Medii_ZOO.Data
         public DbSet<Proiect_Medii_ZOO.Models.Keeper> Keeper { get; set; } = default!;
         public DbSet<Proiect_Medii_ZOO.Models.Enclosure> Enclosure { get; set; } = default!;
         public DbSet<Proiect_Medii_ZOO.Models.Diet> Diet { get; set; } = default!;
+        public DbSet<Proiect_Medii_ZOO.Models.Employee> Employee { get; set; } = default!;
     }
 }
